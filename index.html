@@ -10,7 +10,7 @@
             --bg-color: #050505;
             --text-color: #00ff41;
             --accent-color: #008f11;
-            --card-bg: rgba(10, 10, 10, 0.75); /* Fondo semitransparente */
+            --card-bg: rgba(10, 10, 10, 0.75);
             --border-color: #003b00;
             --glow: 0 0 5px #00ff41, 0 0 10px #00ff41;
         }
@@ -25,228 +25,215 @@
             overflow-x: hidden;
         }
 
-        /* Lienzo donde se dibujan los números */
         #matrix-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            opacity: 0.5; /* Opacidad para que no deslumbre */
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0; opacity: 0.5;
         }
 
-        /* Líneas de escaneo */
         body::after {
             content: " ";
-            display: block;
-            position: fixed;
+            display: block; position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
+            z-index: 1; background-size: 100% 2px, 3px 100%; pointer-events: none;
         }
 
         header {
             border-bottom: 2px solid var(--accent-color);
-            padding: 60px 20px;
+            padding: 40px 20px 20px 20px;
             text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
             box-shadow: 0 0 15px var(--accent-color);
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(4px); /* Difumina lo que cae detrás */
+            position: relative; z-index: 2; backdrop-filter: blur(4px);
         }
 
-        h1 { 
-            color: var(--text-color); 
-            margin-bottom: 5px; 
-            font-size: 2.8em; 
-            text-shadow: var(--glow); 
-            letter-spacing: 2px;
+        h1 { color: var(--text-color); margin-bottom: 5px; font-size: 2.8em; text-shadow: var(--glow); letter-spacing: 2px; }
+        h1::after { content: '_'; animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        p.subtitle { color: #00ff41; font-size: 1.2em; margin-top: 0; opacity: 0.8; }
+
+        /* Estilos del Menú de Navegación */
+        .terminal-nav {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;
+            margin-top: 30px;
         }
 
-        h1::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .nav-btn {
+            background: rgba(5, 5, 5, 0.8); color: var(--text-color);
+            border: 1px solid var(--text-color); padding: 10px 20px;
+            font-family: inherit; font-size: 1em; cursor: pointer;
+            transition: all 0.3s ease; text-transform: uppercase;
         }
 
-        h2 { 
-            color: var(--text-color); 
-            font-size: 1.8em; 
-            margin-bottom: 20px; 
-            border-bottom: 1px dashed var(--accent-color); 
-            padding-bottom: 10px; 
-            text-transform: uppercase;
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--text-color); color: #000; box-shadow: var(--glow);
         }
 
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 2; }
+        
+        /* Control de Pestañas */
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h2 { color: var(--text-color); font-size: 1.8em; margin-bottom: 20px; border-bottom: 1px dashed var(--accent-color); padding-bottom: 10px; text-transform: uppercase; }
         h3 { color: #ffffff; margin-top: 0; }
         
-        p.subtitle { 
-            color: #00ff41; 
-            font-size: 1.2em; 
-            margin-top: 0; 
-            opacity: 0.8;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 0 10px #000000;
-            backdrop-filter: blur(5px);
-        }
-
-        .card:hover { 
-            border-color: var(--text-color); 
-            box-shadow: 0 0 15px var(--accent-color), inset 0 0 15px rgba(0, 255, 65, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .tag {
-            display: inline-block;
-            background: transparent;
-            color: var(--text-color);
-            padding: 5px 10px;
-            border-radius: 0;
-            font-size: 0.85em;
-            margin-right: 8px;
-            margin-top: 12px;
-            border: 1px solid var(--text-color);
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        .tag:hover {
-            background: var(--text-color);
-            color: #000;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 20px; }
+        
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 25px; transition: all 0.3s ease; box-shadow: inset 0 0 10px #000000; backdrop-filter: blur(5px); }
+        .card:hover { border-color: var(--text-color); box-shadow: 0 0 15px var(--accent-color), inset 0 0 15px rgba(0, 255, 65, 0.1); transform: translateY(-5px); }
+        
+        .tag { display: inline-block; background: transparent; color: var(--text-color); padding: 5px 10px; font-size: 0.85em; margin-right: 8px; margin-top: 12px; border: 1px solid var(--text-color); text-transform: uppercase; transition: 0.3s; }
+        .tag:hover { background: var(--text-color); color: #000; }
+        
+        a { color: var(--text-color); text-decoration: none; }
+        a:hover { text-shadow: var(--glow); text-decoration: underline; }
+        
+        .contact-list { list-style-type: none; padding: 0; font-size: 1.2em; }
+        .contact-list li { margin-bottom: 15px; }
+        .contact-list li::before { content: "> "; color: var(--text-color); }
     </style>
 </head>
 <body>
-    <!-- Fondo donde sucede la magia -->
     <canvas id="matrix-canvas"></canvas>
 
     <header>
         <h1>> Francisco Ramirez Quintero</h1>
-        <p class="subtitle">M.Sc. Candidate in Applied Mathematics & Computer Science | Data Scientist | Statistic | Sociologist </p>
-    </header>
-    <div class="container">
-        <section>
-            <h2>> Acerca_de_mí.exe</h2>
-            <p>Dia tras día observo el impacto positivo que la ciencia de datos tiene en la toma de decisiones para la atención de las necesidades de comunidades, hogares o personas vulnerables, por lo anterior mi profesionalización se orienta en abordar desafíos demográficos complejos a través de la estadística, la matemática, las ciencias de la computación y la sociología; que permita generar información relevante para la toma de decisiones en contextos de crisis humanitaria, conflicto armado o extrema vulnerabilidad. Con el objetivo de crear impactos significativos en la vida de las personas que enfrentan situaciones de vulnerabilidad. Especialmente con grupos étnicos en lo largo y ancho del país</p>
-        </section>
+        <p class="subtitle">M.Sc. Candidate in Applied Mathematics & Computer Science</p>
         
-        <section style="margin-top: 50px;">
+        <!-- Menú de Pestañas -->
+        <nav class="terminal-nav">
+            <button class="nav-btn active" onclick="openTab(event, 'proyectos')">./Proyectos</button>
+            <button class="nav-btn" onclick="openTab(event, 'publicaciones')">./Publicaciones</button>
+            <button class="nav-btn" onclick="openTab(event, 'cv')">./Hoja_de_Vida</button>
+            <button class="nav-btn" onclick="openTab(event, 'contacto')">./Contacto</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- PESTAÑA: PROYECTOS (Por defecto visible) -->
+        <section id="proyectos" class="tab-content active">
             <h2>> Proyectos_e_Investigación.sh</h2>
             <div class="grid">
                 <div class="card">
                     <h3>[📈] Evaluación Pedagógica</h3>
                     <p>Reportes de línea base y dashboards para United Way Colombia y Drummond Ltd. Orientado a la mejora de habilidades docentes, controlando la data nutricional como variable de confusión.</p>
-                    <div>
-                        <span class="tag">Python</span>
-                        <span class="tag">Estadística</span>
-                    </div>
+                    <div><span class="tag">Python</span><span class="tag">Estadística</span></div>
                 </div>
                 <div class="card">
                     <h3>[📊] Análisis de Texto Interactivo</h3>
                     <p>Diseño de tableros de procesamiento de texto, limpieza de datos y visualización diseñados enteramente en el entorno de Microsoft.</p>
-                    <div>
-                        <span class="tag">Power BI</span>
-                        <span class="tag">Power Query</span>
-                        <span class="tag">DAX</span>
-                    </div>
+                    <div><span class="tag">Power BI</span><span class="tag">Power Query</span><span class="tag">DAX</span></div>
                 </div>
                 <div class="card">
                     <h3>[📝] Flujos de Datos en Campo</h3>
                     <p>Pipelines de extracción de datos conectando encuestas en campo y levantamiento fotográfico con automatización de reportes.</p>
-                    <div>
-                        <span class="tag">KoBoToolbox</span>
-                        <span class="tag">VBA</span>
-                        <span class="tag">Excel/PPTX</span>
-                    </div>
+                    <div><span class="tag">KoBoToolbox</span><span class="tag">VBA</span></div>
                 </div>
                 <div class="card">
-                    <h3>[🛠️] Innovación Educativa (Startup)</h3>
+                    <h3>[🛠️] Innovación Educativa</h3>
                     <p>Manufactura aditiva para herramientas científicas inclusivas. Diseño de regletas de Cuisenaire, cubos algebraicos y tangrams 3D.</p>
-                    <div>
-                        <span class="tag">Impresión 3D</span>
-                        <span class="tag">Corte Láser</span>
-                    </div>
+                    <div><span class="tag">Impresión 3D</span><span class="tag">Corte Láser</span></div>
                 </div>
             </div>
         </section>
+
+        <!-- PESTAÑA: PUBLICACIONES -->
+        <section id="publicaciones" class="tab-content">
+            <h2>> Publicaciones_Académicas.bib</h2>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>"EL CORAZON DE LAS TINIEBLAS"</h3>
+                <p>El Crimen organizado como agente que regula y controla la migración transnacional de carácter irregular. Estudio estadístico por mínimos cuadrados. <em>Universidad Nacional de Colombia (2016).</em></p>
+            </div>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Entre sueños, senos y espaldas mojadas</h3>
+                <p>Tránsito migratorio de mujeres centroamericanas en las fronteras mexicanas. <em>Congreso Latinoamericano de Sociología ALAS (Chile 2013).</em></p>
+            </div>
+            <div class="card">
+                <h3>Migración informal y dignidad femenina</h3>
+                <p><em>Congreso Centroamericano de Sociología ACAS (Tegucigalpa 2012).</em></p>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: HOJA DE VIDA -->
+        <section id="cv" class="tab-content">
+            <h2>> Hoja_de_Vida.pdf</h2>
+            <div class="card">
+                <h3>Perfil Profesional</h3>
+                <p>Sociólogo y Especialista en Estadística, enfocado en abordar desafíos demográficos complejos a través de la ciencia de datos, las matemáticas aplicadas y las ciencias de la computación.</p>
+                <p>Experiencia comprobada en la formulación, implementación y evaluación de proyectos humanitarios (Protección, Salud, WASH) con donantes internacionales como USAID, ACNUR, ECHO y UNICEF.</p>
+                <br>
+                <a href="#" class="nav-btn" style="text-decoration: none; display: inline-block;">[ Descargar CV Completo PDF ]</a>
+                <p style="font-size: 0.8em; color: #8b949e; margin-top: 10px;">*Nota: Sube tu archivo cv_francisco_ramirez_2026.pdf a GitHub y enlaza la ruta en el botón superior.</p>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: CONTACTO -->
+        <section id="contacto" class="tab-content">
+            <h2>> Inicializar_Contacto.exe</h2>
+            <div class="card">
+                <ul class="contact-list">
+                    <li><strong>Email:</strong> <a href="mailto:framirezqa@gmail.com">framirezqa@gmail.com</a></li>
+                    <li><strong>WhatsApp / Tel:</strong> <a href="https://wa.me/573168920571" target="_blank">316-8920571</a></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/tu_usuario" target="_blank">@tu_usuario</a> <em>(Actualiza tu usuario)</em></li>
+                    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/franciscoramirezquintero" target="_blank">in/franciscoramirezquintero</a></li>
+                    <li><strong>Ubicación:</strong> Bogotá D.C., Colombia</li>
+                </ul>
+            </div>
+        </section>
+
     </div>
 
-    <!-- Script que genera la lluvia digital -->
+    <!-- Script de Lluvia Digital y Control de Pestañas -->
     <script>
+        // --- Control de Pestañas ---
+        function openTab(evt, tabName) {
+            var i, tabcontent, navbtns;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            navbtns = document.getElementsByClassName("nav-btn");
+            for (i = 0; i < navbtns.length; i++) {
+                navbtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // --- Efecto Matrix ---
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
-        // Aquí definimos qué caracteres caen (puedes cambiarlos)
         const characters = '01'; 
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = [];
-
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
+        for (let x = 0; x < columns; x++) { drops[x] = 1; }
 
         function draw() {
-            // Un fondo negro con opacidad para crear la estela (fade) de los números
             ctx.fillStyle = 'rgba(5, 5, 5, 0.05)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff41'; // Color verde brillante
+            ctx.fillStyle = '#00ff41'; 
             ctx.font = fontSize + 'px monospace';
-
             for (let i = 0; i < drops.length; i++) {
-                // Toma un carácter aleatorio
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
-                // Dibuja el carácter
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                // Devuelve la gota al techo aleatoriamente cuando pasa la pantalla
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
-
-        // Redimensiona si cambias el tamaño de la ventana
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
-        // La velocidad de la lluvia (en milisegundos)
         setInterval(draw, 33);
     </script>
 </body>
