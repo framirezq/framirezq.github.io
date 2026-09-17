@@ -153,7 +153,7 @@
             <h2>> ejecutar script: historial_laboral.js</h2>
             
             <div class="interactive-timeline">
-                <!-- Botones de selección de trabajo CON TODA LA EXPERIENCIA -->
+                <!-- Botones de selección de trabajo -->
                 <div class="timeline-menu">
                     <button class="job-btn" onclick="typeJobDetails('caritas', this)">
                         > Cáritas Suiza <span class="date">[Dic 2025 - Feb 2026]</span>
@@ -217,26 +217,64 @@
         <section id="proyectos" class="tab-content">
             <h2>> Proyectos_e_Investigación.sh</h2>
             <div class="grid">
+                
                 <div class="card">
-                    <h3>[📈] Evaluación Pedagógica</h3>
-                    <p>Reportes de línea base y dashboards para United Way Colombia y Drummond Ltd. Orientado a la mejora de habilidades docentes, controlando la data nutricional como variable de confusión.</p>
-                    <div><span class="tag">Python</span><span class="tag">Estadística</span></div>
+                    <h3>[🧠] Predicción de Desplazamiento</h3>
+                    <p>Modelo Bayesiano basado en autómatas y técnicas de teledetección para estimar probabilidades de confinamiento y desplazamiento forzado en comunidades de Nariño.</p>
+                    <div>
+                        <span class="tag">Python</span>
+                        <span class="tag">Bayesian</span>
+                        <span class="tag">GIS</span>
+                    </div>
                 </div>
+
                 <div class="card">
-                    <h3>[📊] Análisis de Texto Interactivo</h3>
-                    <p>Diseño de tableros de procesamiento de texto, limpieza de datos y visualización diseñados enteramente en el entorno de Microsoft.</p>
-                    <div><span class="tag">Power BI</span><span class="tag">Power Query</span><span class="tag">DAX</span></div>
+                    <h3>[🔍] Entity Resolution & ETL</h3>
+                    <p>Detección de duplicados en emergencias vía algoritmo Soundex (librería fuzzy). Integración de Kobo Toolbox, bases SQL y repositorios Meta Data bajo estrictos protocolos de gobernanza.</p>
+                    <div>
+                        <span class="tag">Python</span>
+                        <span class="tag">Fuzzy</span>
+                        <span class="tag">SQL</span>
+                    </div>
                 </div>
+
                 <div class="card">
-                    <h3>[📝] Flujos de Datos en Campo</h3>
-                    <p>Pipelines de extracción de datos conectando encuestas en campo y levantamiento fotográfico con automatización de reportes.</p>
-                    <div><span class="tag">KoBoToolbox</span><span class="tag">VBA</span></div>
+                    <h3>[📊] Tableros Humanitarios (ECHO/FNDH)</h3>
+                    <p>Sistematización de informes directivos y monitoreo en tiempo real (24 municipios, 7 departamentos). Proyectos de medios de vida alternativos, salud y protección.</p>
+                    <div>
+                        <span class="tag">Power BI</span>
+                        <span class="tag">DAX</span>
+                    </div>
                 </div>
+
                 <div class="card">
-                    <h3>[🛠️] Innovación Educativa</h3>
-                    <p>Manufactura aditiva para herramientas científicas inclusivas. Diseño de regletas de Cuisenaire, cubos algebraicos y tangrams 3D.</p>
-                    <div><span class="tag">Impresión 3D</span><span class="tag">Corte Láser</span></div>
+                    <h3>[📈] Acompañamiento Situado (SED/SISD)</h3>
+                    <p>Conexión a la API de KOBO y procesos ETL en Power Query para evaluar habilidades pedagógicas en instituciones educativas distritales, aislando factores nutricionales.</p>
+                    <div>
+                        <span class="tag">Power Query</span>
+                        <span class="tag">API REST</span>
+                    </div>
                 </div>
+
+                <div class="card">
+                    <h3>[🕸️] Automatización (Obsidian & R)</h3>
+                    <p>Desarrollo de grafos de conocimiento en Obsidian para automatización HTML. Creación de reportes dinámicos estadísticos con RStudio (ggplot/ggplotanime) embebidos en Markdown.</p>
+                    <div>
+                        <span class="tag">Obsidian</span>
+                        <span class="tag">RStudio</span>
+                        <span class="tag">Markdown</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>[🛠️] Innovación Educativa Inclusiva</h3>
+                    <p>Manufactura aditiva para herramientas científicas inclusivas. Diseño y fabricación de regletas de Cuisenaire, cubos algebraicos y tangrams 3D.</p>
+                    <div>
+                        <span class="tag">Impresión 3D</span>
+                        <span class="tag">Corte Láser</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -297,7 +335,7 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // --- 2. Efecto de Tipeo (Animación Consola) con TODO tu CV ---
+        // --- 2. Efecto de Tipeo (Animación Consola) ---
         const jobLogs = {
             caritas: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor Gestión de Información\n> Cáritas Suiza\n\n- Apoyo técnico en gestión de información para análisis de situación humanitaria y protección (programa EuroPana).\n- Establecimiento de procesos de depuración, limpieza y sistematización de bases de datos.\n- Construcción de tableros dinámicos y diagramación de mapas temáticos (interactivos) para visualizar riesgos y necesidades.\n- Elaboración de fichas técnicas para Perú, Brasil, Ecuador, Colombia y Venezuela.",
             mercy: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> Mercy Corps\n\n- Recolección de información cualitativa para análisis de necesidades en el departamento del Cesar.\n- Construcción de bases de datos para identificar y priorizar personas a entrevistar.\n- Aplicación de entrevistas semiestructuradas, grabación, transcripción y consolidación de documento de reporte.",
@@ -337,7 +375,7 @@
                 } else {
                     clearInterval(typingInterval);
                 }
-            }, 10); // Velocidad ligeramente más rápida para textos largos
+            }, 10);
         }
 
         // --- 3. Lluvia Matrix ---
