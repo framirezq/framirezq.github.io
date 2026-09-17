@@ -84,20 +84,26 @@
             display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;
         }
         
-        .timeline-menu { flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 10px; }
+        .timeline-menu { 
+            flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 10px; 
+            max-height: 400px; overflow-y: auto; padding-right: 10px;
+        }
+        /* Scrollbar hacker */
+        .timeline-menu::-webkit-scrollbar { width: 5px; }
+        .timeline-menu::-webkit-scrollbar-track { background: #111; }
+        .timeline-menu::-webkit-scrollbar-thumb { background: var(--text-color); }
         
         .job-btn {
             background: rgba(10, 10, 10, 0.9); border: 1px solid var(--border-color); color: var(--text-color);
-            padding: 15px; text-align: left; font-family: inherit; font-size: 1em; cursor: pointer; transition: 0.3s;
+            padding: 15px; text-align: left; font-family: inherit; font-size: 0.9em; cursor: pointer; transition: 0.3s;
             position: relative; overflow: hidden; display: flex; flex-direction: column;
         }
-        .job-btn span.date { color: var(--accent-color); font-size: 0.8em; margin-top: 5px; }
+        .job-btn span.date { color: var(--accent-color); font-size: 0.85em; margin-top: 5px; }
         .job-btn:hover, .job-btn.active {
             border-color: var(--text-color); box-shadow: inset 5px 0 0 var(--text-color), 0 0 10px rgba(0, 255, 65, 0.2);
             background: rgba(0, 255, 65, 0.1);
         }
         
-        /* Efecto Glitch en botones */
         @keyframes glitch {
             0% { text-shadow: 1px 0 var(--text-color), -1px 0 red; }
             50% { text-shadow: -1px 0 var(--text-color), 1px 0 red; }
@@ -108,7 +114,7 @@
         .timeline-console {
             flex: 2; min-width: 300px; background: #000; border: 1px solid var(--text-color);
             border-radius: 4px; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(0,255,65,0.1);
-            min-height: 300px; position: relative;
+            min-height: 400px; position: relative;
         }
         .console-header {
             background: var(--text-color); color: #000; padding: 5px 15px; font-weight: bold; font-size: 0.9em;
@@ -120,7 +126,6 @@
         .typing-cursor::after {
             content: '█'; animation: blink 1s step-end infinite; margin-left: 5px;
         }
-
     </style>
 </head>
 <body>
@@ -148,13 +153,22 @@
             <h2>> ejecutar script: historial_laboral.js</h2>
             
             <div class="interactive-timeline">
-                <!-- Botones de selección de trabajo -->
+                <!-- Botones de selección de trabajo CON TODA LA EXPERIENCIA -->
                 <div class="timeline-menu">
                     <button class="job-btn" onclick="typeJobDetails('caritas', this)">
                         > Cáritas Suiza <span class="date">[Dic 2025 - Feb 2026]</span>
                     </button>
+                    <button class="job-btn" onclick="typeJobDetails('mercy', this)">
+                        > Mercy Corps <span class="date">[Nov 2025 - Nov 2025]</span>
+                    </button>
                     <button class="job-btn" onclick="typeJobDetails('uw', this)">
                         > United Way Colombia <span class="date">[Jun 2025 - Abr 2026]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('fndh', this)">
+                        > Fondo Noruego (FNDH) <span class="date">[Ene 2024 - Abr 2024]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('goal', this)">
+                        > GOAL Internacional <span class="date">[Dic 2023 - Ene 2024]</span>
                     </button>
                     <button class="job-btn" onclick="typeJobDetails('halu', this)">
                         > HALU Bienestar Humano <span class="date">[Abr 2023 - Abr 2025]</span>
@@ -162,8 +176,32 @@
                     <button class="job-btn" onclick="typeJobDetails('alianza', this)">
                         > Alianza por la Solidaridad <span class="date">[Dic 2022 - Jul 2023]</span>
                     </button>
+                    <button class="job-btn" onclick="typeJobDetails('mire', this)">
+                        > Consorcio MIRE+ ACH NRC APS <span class="date">[Jun 2022 - Jul 2023]</span>
+                    </button>
                     <button class="job-btn" onclick="typeJobDetails('ach', this)">
                         > Acción Contra el Hambre <span class="date">[Mar 2020 - May 2022]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('save', this)">
+                        > Save the Children <span class="date">[Oct 2019 - May 2020]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('dane19', this)">
+                        > DANE (Analista) <span class="date">[Ene 2019 - Nov 2019]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('dane18', this)">
+                        > DANE (Coord. Municipal) <span class="date">[Abr 2018 - Nov 2018]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('cpe', this)">
+                        > Universidad Nacional - CPE <span class="date">[Ene 2018 - Abr 2018]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('dane17', this)">
+                        > DANE (Supervisor EMP) <span class="date">[Ago 2017 - Dic 2017]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('nelekonar', this)">
+                        > Constructora Nelekonar <span class="date">[Sep 2016 - Jul 2017]</span>
+                    </button>
+                    <button class="job-btn" onclick="typeJobDetails('iepri', this)">
+                        > IEPRI - U. Nacional <span class="date">[2014 - 2016]</span>
                     </button>
                 </div>
                 
@@ -259,39 +297,47 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // --- 2. Efecto de Tipeo (Animación Consola) ---
+        // --- 2. Efecto de Tipeo (Animación Consola) con TODO tu CV ---
         const jobLogs = {
-            caritas: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor Gestión de Información\n> Cáritas Suiza\n\n- Apoyo técnico en gestión de información para análisis de situación humanitaria y protección (programa EuroPana).\n- Establecimiento de procesos de depuración y sistematización de bases de datos.\n- Construcción de tableros dinámicos y diagramación de mapas temáticos interactivos.\n- Elaboración de fichas técnicas para toma de decisiones en Perú, Brasil, Ecuador, Colombia y Venezuela.",
-            uw: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> United Way Colombia\n\n- Diseño, aplicación y sistematización de procesos de evaluación y medición de resultados.\n- Proyecto: DE LA MANO CONTIGO en instituciones educativas distritales de Bogotá.\n- Construcción de indicadores, instrumentos y visualizaciones para reportes técnicos.",
-            halu: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Responsable MEAL (Monitoreo, Evaluación, Aprendizaje)\n> HALU Bienestar Humano\n\n- Coordinación del área MEAL y estructuración de la Unidad de Gestión de Información.\n- Recopilación de información primaria (encuestas, grupos focales, cartografías sociales).\n- Análisis de datos secundarios (datos abiertos) para monitoreo programático.\n- Garantía de gobernanza de datos en condiciones de ciberseguridad.",
-            alianza: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Líder Estadístico\n> Alianza por la Solidaridad\n\n- Liderar la construcción de herramienta predictiva en contextos de conflicto armado.\n- Priorización de comunidades en Nariño que requieren protección para evitar desplazamientos masivos.\n- Integración de técnicas de teledetección satelital y modelado Bayesiano avanzado.",
-            ach: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Oficial MEAL\n> Acción Contra el Hambre\n\n- Diseño de Indicadores y planes de monitoreo para proyectos de intervención.\n- Desarrollo de líneas base y salida adaptadas a población vulnerable.\n- Liderazgo en el almacenamiento, análisis y reporte de datos a donantes internacionales."
+            caritas: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor Gestión de Información\n> Cáritas Suiza\n\n- Apoyo técnico en gestión de información para análisis de situación humanitaria y protección (programa EuroPana).\n- Establecimiento de procesos de depuración, limpieza y sistematización de bases de datos.\n- Construcción de tableros dinámicos y diagramación de mapas temáticos (interactivos) para visualizar riesgos y necesidades.\n- Elaboración de fichas técnicas para Perú, Brasil, Ecuador, Colombia y Venezuela.",
+            mercy: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> Mercy Corps\n\n- Recolección de información cualitativa para análisis de necesidades en el departamento del Cesar.\n- Construcción de bases de datos para identificar y priorizar personas a entrevistar.\n- Aplicación de entrevistas semiestructuradas, grabación, transcripción y consolidación de documento de reporte.",
+            uw: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> United Way Colombia\n\n- Diseño, aplicación y sistematización de procesos de evaluación y medición de resultados del convenio DE LA MANO CONTIGO.\n- Generación de indicadores, instrumentos, análisis, visualizaciones e informes técnicos en instituciones educativas distritales.",
+            fndh: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> Fondo Noruego de Derechos Humanos\n\n- Estudio de línea base para el proyecto 'Apoyo a PICLs y sociedad civil en Colombia'.\n- Análisis y herramienta de seguimiento para el monitoreo de resultados de los 36 proyectos apoyados actualmente.",
+            goal: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Consultor\n> GOAL Internacional\n\n- Evaluación rápida de necesidades en municipios de Guajira, Norte de Santander y Arauca.\n- Diagnóstico sobre aspectos socioeconómicos, reducción de riesgos a desastres y sistemas de alerta temprana.",
+            halu: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Responsable MEAL\n> HALU Bienestar Humano\n\n- Coordinación del área MEAL y estructuración de la Unidad de Gestión de la Información.\n- Recopilación de información primaria (encuestas, grupos focales, cartografías sociales).\n- Recopilación de información secundaria (datos abiertos, arquitectura humanitaria) y gobernanza de datos en ciberseguridad.",
+            alianza: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Líder Estadístico\n> Alianza por la Solidaridad\n\n- Construcción de herramienta predictiva en contexto de conflicto armado (Nariño) mediante un modelo Bayesiano.\n- Integración de técnicas de teledetección para prevenir desplazamientos masivos o confinamientos.",
+            mire: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Oficial de Monitoreo Evaluación UGC\n> Consorcio MIRE+ ACH NRC APS\n\n- Liderazgo técnico en procesos MEAL de emergencia en sectores WASH, Protección, Medios de Vida y Seguridad Alimentaria.\n- Construcción de líneas base, caracterización, líneas de salida comunitarias y reportes dirigidos al donante.",
+            ach: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Oficial MEAL\n> Acción Contra el Hambre\n\n- Diseño de indicadores, planes de monitoreo y herramientas para adaptación a sectores poblacionales vulnerables.\n- Gestión segura de datos y análisis de información para toma de decisiones y reporte a donantes.",
+            save: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Asistente MERA\n> Save the Children\n\n- Asistencia técnica y desarrollo de capacidad en MERA (Monitoreo, Evaluación, Rendición de Cuentas y Aprendizaje).\n- Visitas a terreno y gestión de la información producto de los proyectos.",
+            dane19: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Analista de DATOS\n> DANE\n\n- Análisis, limpieza y visualización de datos de cotizaciones (IPC, ICES, ICTC, ICTCP y PPA) mediante Oracle y Fox.\n- Coordinación y supervisión de equipos en campo (recolectores y supervisores).",
+            dane18: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Coordinador Municipal - Censo 2018\n> DANE\n\n- Responsable del operativo censal en Rioblanco, Tolima (pre y post operativo).\n- Monitoreo de cartografía y transmisión de información censal vía FTP y XML.\n- Enlace municipal entre gobernantes, comunidades étnicas y el DANE.",
+            cpe: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Técnico de Campo II\n> Computadores para Educar - Universidad Nacional\n\n- Recolección de información cuantitativa y cualitativa en colegios públicos a nivel nacional.",
+            dane17: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Supervisor EMP 2017\n> DANE\n\n- Supervisión de recolección de información estadística mediante captura móvil (DMC) para la Encuesta Multipropósito 2017.",
+            nelekonar: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Gestor Social\n> Constructora Nelekonar S.A.S\n\n- Planeación y evaluación de programas de vivienda (VIS y VIP) para población desplazada.\n- Interlocución entre la comunidad y la constructora para satisfacer necesidades conjuntas.",
+            iepri: "Buscando registros en servidor... [OK]\nDesencriptando datos...\n\n> Investigador Junior IEPRI\n> Universidad Nacional de Colombia\n\n- Diseño y aplicación de instrumentos cuantitativos y cualitativos en población universitaria indígena."
         };
 
         let typingInterval;
         function typeJobDetails(jobId, btnElement) {
-            // Actualizar estado activo en los botones
             let btns = document.getElementsByClassName("job-btn");
             for(let i=0; i<btns.length; i++){ btns[i].classList.remove("active"); }
             btnElement.classList.add("active");
 
-            // Efecto de tipeo en consola
             const consoleOutput = document.getElementById("console-output");
             const textToType = jobLogs[jobId];
-            consoleOutput.innerHTML = ""; // Limpiar consola
-            clearInterval(typingInterval); // Detener tipeos anteriores
+            consoleOutput.innerHTML = ""; 
+            clearInterval(typingInterval); 
             
             let charIndex = 0;
             typingInterval = setInterval(() => {
                 if(charIndex < textToType.length) {
                     consoleOutput.innerHTML += textToType.charAt(charIndex);
                     charIndex++;
-                    // Bajar el scroll automáticamente si el texto es largo
                     consoleOutput.scrollTop = consoleOutput.scrollHeight;
                 } else {
                     clearInterval(typingInterval);
                 }
-            }, 15); // Velocidad de tipeo (milisegundos)
+            }, 10); // Velocidad ligeramente más rápida para textos largos
         }
 
         // --- 3. Lluvia Matrix ---
