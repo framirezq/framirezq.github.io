@@ -20,20 +20,16 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            margin: 0; padding: 0; overflow-x: hidden;
         }
 
         #matrix-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 0; opacity: 0.5;
         }
 
         body::after {
-            content: " ";
-            display: block; position: fixed;
+            content: " "; display: block; position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 1; background-size: 100% 2px, 3px 100%; pointer-events: none;
@@ -41,8 +37,7 @@
 
         header {
             border-bottom: 2px solid var(--accent-color);
-            padding: 40px 20px 20px 20px;
-            text-align: center;
+            padding: 40px 20px 20px 20px; text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
             box-shadow: 0 0 15px var(--accent-color);
             position: relative; z-index: 2; backdrop-filter: blur(4px);
@@ -54,10 +49,8 @@
 
         p.subtitle { color: #00ff41; font-size: 1.2em; margin-top: 0; opacity: 0.8; }
 
-        /* Estilos del Menú de Navegación */
         .terminal-nav {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;
-            margin-top: 30px;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 30px;
         }
 
         .nav-btn {
@@ -73,7 +66,6 @@
 
         .container { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 2; }
         
-        /* Control de Pestañas */
         .tab-content { display: none; animation: fadeIn 0.4s ease-in; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -95,6 +87,45 @@
         .contact-list { list-style-type: none; padding: 0; font-size: 1.2em; }
         .contact-list li { margin-bottom: 15px; }
         .contact-list li::before { content: "> "; color: var(--text-color); }
+
+        /* Estilos Pestaña Inicio y Diagrama Gantt */
+        .quote-box {
+            border-left: 4px solid var(--text-color);
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+        .quote-box::before {
+            content: 'sys.out.print("Misión"):';
+            display: block; color: var(--accent-color); font-size: 0.8em; margin-bottom: 10px;
+        }
+
+        .gantt-container { display: flex; flex-direction: column; gap: 15px; }
+        .gantt-row {
+            background: rgba(10, 10, 10, 0.9); border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 4px; position: relative; overflow: hidden;
+            transition: 0.3s;
+        }
+        .gantt-row:hover { border-color: var(--text-color); transform: translateX(5px); box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); }
+        .gantt-row::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: var(--text-color); box-shadow: var(--glow);
+        }
+        .gantt-meta { display: flex; justify-content: space-between; margin-bottom: 12px; position: relative; z-index: 2; flex-wrap: wrap; }
+        .gantt-title { font-weight: bold; font-size: 1.1em; color: #fff; }
+        .gantt-date { color: var(--accent-color); font-size: 0.9em; }
+        .gantt-track { width: 100%; height: 6px; background: #111; border-radius: 4px; overflow: hidden; }
+        
+        /* Modificadores de ancho para simular el Gantt (Duración de los proyectos) */
+        .bar-long { width: 90%; background: var(--text-color); height: 100%; box-shadow: var(--glow); animation: loadBar 1.5s ease-out forwards; }
+        .bar-medium { width: 50%; background: var(--text-color); height: 100%; box-shadow: var(--glow); animation: loadBar 1.5s ease-out forwards; }
+        .bar-short { width: 25%; background: var(--text-color); height: 100%; box-shadow: var(--glow); animation: loadBar 1.5s ease-out forwards; }
+        
+        @keyframes loadBar { from { width: 0; } }
     </style>
 </head>
 <body>
@@ -102,11 +133,12 @@
 
     <header>
         <h1>> Francisco Ramirez Quintero</h1>
-        <p class="subtitle">M.Sc. Candidate in Applied Mathematics & Computer Science</p>
+        <p class="subtitle">M.Sc. Candidate in Applied Mathematics & Computer Science | Data Scientist</p>
         
-        <!-- Menú de Pestañas -->
         <nav class="terminal-nav">
-            <button class="nav-btn active" onclick="openTab(event, 'proyectos')">./Proyectos</button>
+            <!-- La pestaña Inicio ahora es la primera y está activa por defecto -->
+            <button class="nav-btn active" onclick="openTab(event, 'inicio')">./Inicio</button>
+            <button class="nav-btn" onclick="openTab(event, 'proyectos')">./Proyectos</button>
             <button class="nav-btn" onclick="openTab(event, 'publicaciones')">./Publicaciones</button>
             <button class="nav-btn" onclick="openTab(event, 'cv')">./Hoja_de_Vida</button>
             <button class="nav-btn" onclick="openTab(event, 'contacto')">./Contacto</button>
@@ -115,8 +147,58 @@
 
     <div class="container">
         
-        <!-- PESTAÑA: PROYECTOS (Por defecto visible) -->
-        <section id="proyectos" class="tab-content active">
+        <!-- PESTAÑA: INICIO (Nueva) -->
+        <section id="inicio" class="tab-content active">
+            <div class="quote-box">
+                "Día tras día observo el impacto positivo que la ciencia de datos tiene en la toma de decisiones para la atención de las necesidades de comunidades, hogares o personas vulnerables. Por lo anterior, mi profesionalización se orienta en abordar desafíos demográficos complejos a través de la estadística, la matemática, las ciencias de la computación y la sociología; permitiendo generar información relevante en contextos de crisis humanitaria, conflicto armado o extrema vulnerabilidad. El objetivo central es crear impactos significativos en la vida de las personas, especialmente con grupos étnicos a lo largo y ancho del país."
+            </div>
+
+            <h2>> execution_timeline.log (Experiencia)</h2>
+            <div class="gantt-container">
+                <div class="gantt-row">
+                    <div class="gantt-meta">
+                        <span class="gantt-title">Consultor - United Way Colombia & Drummond Ltd.</span>
+                        <span class="gantt-date">[Jun 2025 - Abr 2026]</span>
+                    </div>
+                    <div class="gantt-track"><div class="bar-medium"></div></div>
+                </div>
+
+                <div class="gantt-row">
+                    <div class="gantt-meta">
+                        <span class="gantt-title">Consultor Gestión de Información - Cáritas Suiza</span>
+                        <span class="gantt-date">[Dic 2025 - Feb 2026]</span>
+                    </div>
+                    <div class="gantt-track"><div class="bar-short"></div></div>
+                </div>
+
+                <div class="gantt-row">
+                    <div class="gantt-meta">
+                        <span class="gantt-title">Responsable MEAL - HALU Bienestar Humano</span>
+                        <span class="gantt-date">[Abr 2023 - Abr 2025]</span>
+                    </div>
+                    <div class="gantt-track"><div class="bar-long"></div></div>
+                </div>
+
+                <div class="gantt-row">
+                    <div class="gantt-meta">
+                        <span class="gantt-title">Líder Estadístico - Alianza por la Solidaridad</span>
+                        <span class="gantt-date">[Dic 2022 - Jul 2023]</span>
+                    </div>
+                    <div class="gantt-track"><div class="bar-medium"></div></div>
+                </div>
+
+                <div class="gantt-row">
+                    <div class="gantt-meta">
+                        <span class="gantt-title">Oficial MEAL - Acción Contra el Hambre</span>
+                        <span class="gantt-date">[Mar 2020 - May 2022]</span>
+                    </div>
+                    <div class="gantt-track"><div class="bar-long"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: PROYECTOS -->
+        <section id="proyectos" class="tab-content">
             <h2>> Proyectos_e_Investigación.sh</h2>
             <div class="grid">
                 <div class="card">
@@ -168,7 +250,6 @@
                 <p>Experiencia comprobada en la formulación, implementación y evaluación de proyectos humanitarios (Protección, Salud, WASH) con donantes internacionales como USAID, ACNUR, ECHO y UNICEF.</p>
                 <br>
                 <a href="#" class="nav-btn" style="text-decoration: none; display: inline-block;">[ Descargar CV Completo PDF ]</a>
-                <p style="font-size: 0.8em; color: #8b949e; margin-top: 10px;">*Nota: Sube tu archivo cv_francisco_ramirez_2026.pdf a GitHub y enlaza la ruta en el botón superior.</p>
             </div>
         </section>
 
@@ -179,7 +260,7 @@
                 <ul class="contact-list">
                     <li><strong>Email:</strong> <a href="mailto:framirezqa@gmail.com">framirezqa@gmail.com</a></li>
                     <li><strong>WhatsApp / Tel:</strong> <a href="https://wa.me/573168920571" target="_blank">316-8920571</a></li>
-                    <li><strong>Telegram:</strong> <a href="https://t.me/tu_usuario" target="_blank">@tu_usuario</a> <em>(Actualiza tu usuario)</em></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/tu_usuario" target="_blank">@tu_usuario</a></li>
                     <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/franciscoramirezquintero" target="_blank">in/franciscoramirezquintero</a></li>
                     <li><strong>Ubicación:</strong> Bogotá D.C., Colombia</li>
                 </ul>
@@ -190,7 +271,6 @@
 
     <!-- Script de Lluvia Digital y Control de Pestañas -->
     <script>
-        // --- Control de Pestañas ---
         function openTab(evt, tabName) {
             var i, tabcontent, navbtns;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -205,7 +285,6 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // --- Efecto Matrix ---
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
